@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "quantumoptimization"
+version = "0.1.0"
+description = "Thesis on \"Quantum Optimization using neural networks\""
+authors = ["Vladislav Illarionov <vladislavillarionov32@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.11"
+numpy = "^1.22.2"
+matplotlib = "^3.5.1"
+scipy = "^1.8.0"
+pandas = "^1.4.1"
+cvxpy = "^1.1.18"
+networkx = "^2.6.3"
+qiskit = "^0.34.2"
+termcolor = "^1.1.0"
+
+[tool.poetry.dev-dependencies]
+tqdm = "^4.62.3"
+ipykernel = "^6.9.1"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
