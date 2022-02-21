@@ -21,7 +21,7 @@ def get_results(
     results = []
 
     if not part_range:
-        part_range = (0, len(G_data) + 1)
+        part_range = (1, len(G_data) + 1)
 
     data = G_data[part_range[0] - 1 : part_range[1]]
 
