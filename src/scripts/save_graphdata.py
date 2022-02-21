@@ -15,12 +15,13 @@ def validate_outfilename(fname: str) -> str:
         return abs_path
 
     print(colored(f'File .../{fname} already exists', "yellow"))
-    correct = False
-    while not correct:
-        new_fname = input("Enter new filename to output .csv: ")
-        abs_path = os.path.join(GRAPHRESULTS_DIR, new_fname)
-        if new_fname and not os.path.isfile(abs_path):
-            correct = True
+    raise Exception("File already exists")
+    # correct = False
+    # while not correct:
+    #     new_fname = input("Enter new filename to output .csv: ")
+    #     abs_path = os.path.join(GRAPHRESULTS_DIR, new_fname)
+    #     if new_fname and not os.path.isfile(abs_path):
+    #         correct = True
 
     return abs_path
 

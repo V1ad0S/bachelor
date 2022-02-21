@@ -11,22 +11,39 @@ from quantumoptimization.algorithms.quantum_algs import qaoa_maxcut
 
 
 
-def get_results(G_data: np.ndarray,
-                p_max: int = 1,
-                use_statevec: bool = True) -> pd.DataFrame:
+def get_results(
+            G_data: np.ndarray,
+            p_max: int = 1,
+            use_statevec: bool = True,
+            part_range: tuple[int] = None,
+        ) -> pd.DataFrame:
     col_names = ['GW', 'greedy'] + [f'qaoa(p={p})' for p in range(1, p_max + 1)]
     results = []
 
+    if not part_range:
+        part_range = (0, len(G_data) + 1)
+
+    data = G_data[part_range[0] - 1 : part_range[1]]
+
     try:
-        for adj_list in tqdm(G_data):
+        for adj_list in tqdm(data):
             G = nx.parse_adjlist(adj_list)
             res = graph_cut_sizes(G, p_max, use_statevec)
             results.append(res)
     except:
         print(colored("Exception occured!", "red"), file=sys.stderr)
 
-    index = pd.RangeIndex(1, len(results) + 1, name='graph_number')
-    df = pd.DataFrame(results, index=index, columns=col_names)
+    index = pd.RangeIndex(
+        part_range[0],
+        part_range[0] + len(results),
+        name='graph_number'
+    )
+
+    try:
+        df = pd.DataFrame(results, index=index, columns=col_names)
+    except:
+        df = pd.DataFrame(results, columns=col_names)
+
     return df
 
 
